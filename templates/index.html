@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic AI Monitoring</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Layout: Video + Sidebar -->
+        <div class="main-layout">
+            <!-- Video Display (4/5) -->
+            <section class="video-section">
+                <div class="video-container">
+                    <img id="videoFrame" style="width: 100%; height: auto; display: none;" />
+                    
+                    <!-- Density Indicator Overlay -->
+                    <div class="density-overlay" id="densityOverlay" style="display: none;">
+                        <div class="density-badge density-low" id="densityBadge">
+                            THÔNG THOÁNG | 0 xe
+                        </div>
+                    </div>
+                    
+                    <div id="noVideoMessage" class="no-video-message">
+                        <p>📹</p>
+                        <p>No video stream</p>
+                        <p style="font-size: 0.9rem; opacity: 0.7;">Press <kbd>G</kbd> to open settings</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sidebar (1/5) -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h3>License Plates</h3>
+                </div>
+                
+                <div id="platesList" class="plates-list">
+                    <div class="no-data">No plates detected yet</div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>⚙️ Settings</h3>
+                    <button class="modal-close" id="closeSettings">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Tab Navigation -->
+                    <div class="settings-tabs">
+                        <button class="tab-btn active" data-tab="connection">Stream Connection</button>
+                        <button class="tab-btn" data-tab="density">Density Thresholds</button>
+                    </div>
+
+                    <!-- Connection Tab -->
+                    <div class="tab-content active" id="connectionTab">
+                        <div class="form-group">
+                            <label for="protocol">Protocol:</label>
+                            <select id="protocol" class="input">
+                                <option value="rtsp">RTSP</option>
+                                <option value="hls">HLS</option>
+                                <option value="video">Video File (Test)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="urlGroup">
+                            <label for="streamUrl">Stream URL:</label>
+                            <input type="text" id="streamUrl" class="input" placeholder="rtsp://192.168.1.100:554/stream1">
+                            <small style="color: #b0b3b8; display: block; margin-top: 5px;">
+                                Examples:<br>
+                                • RTSP: rtsp://username:password@host:port/path<br>
+                                • HLS: http://host:port/path/stream.m3u8
+                            </small>
+                        </div>
+
+                        <div class="form-group" id="fileGroup" style="display: none;">
+                            <label for="videoFile">Upload Video File:</label>
+                            <input type="file" id="videoFile" class="input" accept="video/*">
+                            <small style="color: #b0b3b8; display: block; margin-top: 5px;">
+                                Select a video file from your computer (MP4, AVI, MOV, etc.)
+                            </small>
+                        </div>
+
+                        <div class="status">
+                            <span class="status-label">Status:</span>
+                            <span id="statusIndicator" class="status-dot status-disconnected"></span>
+                            <span id="statusText">DISCONNECTED</span>
+                        </div>
+
+                        <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+                        <div class="button-group" style="margin-top: 20px;">
+                            <button id="connectBtn" class="btn btn-primary">Connect</button>
+                            <button id="disconnectBtn" class="btn btn-secondary" disabled>Disconnect</button>
+                        </div>
+                    </div>
+
+                    <!-- Density Tab -->
+                    <div class="tab-content" id="densityTab" style="display: none;">
+                        <p style="color: #b0b3b8; margin-bottom: 20px;">
+                            Adjust the vehicle count thresholds for traffic density levels
+                        </p>
+                        
+                        <div class="form-group">
+                            <label for="densityLow">
+                                🟢 Low Traffic (Green)
+                                <span style="color: #b0b3b8; font-size: 12px;"> - Less than:</span>
+                            </label>
+                            <input type="number" id="densityLow" class="input" value="5" min="1" max="50">
+                            <small style="color: #b0b3b8;">Vehicles count threshold for low density</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="densityMedium">
+                                🟡 Medium Traffic (Yellow)
+                                <span style="color: #b0b3b8; font-size: 12px;"> - Between low and:</span>
+                            </label>
+                            <input type="number" id="densityMedium" class="input" value="10" min="1" max="100">
+                            <small style="color: #b0b3b8;">Vehicles count threshold for medium density</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                🔴 High Traffic (Red)
+                                <span style="color: #b0b3b8; font-size: 12px;"> - More than medium</span>
+                            </label>
+                            <small style="color: #b0b3b8;">Automatically applies when count exceeds medium threshold</small>
+                        </div>
+
+                        <div class="settings-preview">
+                            <h4>Current Thresholds:</h4>
+                            <ul id="thresholdPreview">
+                                <li>🟢 Low: &lt; <span id="previewLow">5</span> vehicles</li>
+                                <li>🟡 Medium: <span id="previewLow2">5</span> - <span id="previewMedium">10</span> vehicles</li>
+                                <li>🔴 High: &gt; <span id="previewMedium2">10</span> vehicles</li>
+                            </ul>
+                        </div>
+
+                        <div class="button-group" style="margin-top: 20px;">
+                            <button id="resetSettings" class="btn btn-secondary">Reset to Default</button>
+                            <button id="saveSettings" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

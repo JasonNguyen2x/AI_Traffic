@@ -1,0 +1,88 @@
+# Server Configuration
+server:
+  host: 0.0.0.0
+  port: 8500
+  reload: false
+
+# AI Configuration
+ai:
+  device: auto  # auto, cuda, or cpu
+  vehicle_confidence: 0.25  # Lowered from 0.4 for YOLO11n (better recall)
+  plate_confidence: 0.35    # Lowered from 0.4 for better detection
+  helmet_confidence: 0.5    # Helmet detection confidence
+  inference_size: 1280  # Changed to 1280 for TensorRT (was 640)
+  plate_detection_interval: 5  # Run plate detection every N frames
+  ocr_interval: 5  # Run OCR every N frames (lowered for debugging)
+  helmet_detection_interval: 3  # Run helmet detection every N frames
+
+# Models
+models:
+  vehicle: models/yolo11n.engine  # TensorRT engine
+  vehicle_fallback: models/yolo11n.pt  # Fallback if engine not found
+  plate: license_plate_detector.engine  # TensorRT engine
+  plate_fallback: license_plate_detector.pt  # Fallback
+  helmet: models/helmet_detector.engine  # TensorRT engine
+  helmet_fallback: models/helmet_detector.pt  # Fallback if engine not found
+  use_tensorrt: true  # Use TensorRT if available
+
+# Tracking Configuration
+tracking:
+  max_age: 30  # Max frames to keep lost tracks
+  min_hits: 3   # Min detections before confirmed
+  iou_threshold: 0.3
+
+# Stream Configuration
+stream:
+  buffer_size: 2  # Keep only latest N frames
+  reconnect_delay: 3  # Seconds between reconnect attempts
+  max_reconnect_attempts: 10
+  connection_timeout: 5  # Seconds
+  frame_timeout: 10  # Seconds
+  protocols:
+    - rtsp
+    - hls
+    - video  # Local video file 
+
+# Video Processing
+video:
+  input_resolution:
+    width: 1280  # Input from camera (480p)
+    height: 720
+  output_resolution:
+    width: 1280  # Output to browser (720p)
+    height: 720
+  target_fps: 30
+  jpeg_quality: 75  # For WebSocket transmission
+
+# Traffic Density Thresholds
+density:
+  low: 5      # < 5 vehicles: Low traffic (Green)
+  medium: 10  # 5-10 vehicles: Medium traffic (Yellow)
+  # > 10 vehicles: High traffic (Red)
+
+# Traffic Counting
+counting:
+  line:
+    x1: 100
+    y1: 300
+    x2: 900
+    y2: 300
+  direction: both  # both, in, out
+
+# OCR Configuration
+ocr:
+  model: cct-xs-v2-global-model  # cct-xs-v2-global-model (fast) or cct-s-v2-global-model (accurate)
+  confidence_threshold: 0.0  # Disabled for testing (fast-plate-ocr doesn't return confidence)
+  temporal_voting_frames: 5  # Aggregate OCR over N frames
+
+# Memory Management
+memory:
+  max_tracked_vehicles: 1000
+  max_ocr_history_per_vehicle: 20
+  max_recent_plates: 100
+  cleanup_interval_frames: 100
+
+# Logging
+logging:
+  level: DEBUG  # Show helmet debug logs
+  format: "[%(levelname)s] %(asctime)s - %(message)s"

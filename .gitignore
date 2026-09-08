@@ -1,0 +1,127 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyc
+
+# Virtual Environments
+env/
+venv/
+ENV/
+.venv
+virtualenv/
+
+# Distribution / Packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# AI Models (large files)
+# Uncomment lines below to prevent pushing specific models
+# models/*.pt
+models/*.pth
+models/*.onnx
+models/*.engine
+models/*.plan
+models/*.trt
+!models/.gitkeep
+
+# Note: Current .pt files are small enough for GitHub (<100MB each)
+# If models grow larger, use Git LFS or GitHub Releases instead
+!models/.gitkeep
+
+# Uploaded Videos (user content)
+uploads/*.mp4
+uploads/*.avi
+uploads/*.mov
+uploads/*.mkv
+uploads/*.webm
+!uploads/.gitkeep
+!uploads/.gitkeep
+
+# Temporary Files
+*.tmp
+tmp_*
+temp/
+.cache/
+
+# IDE / Editor
+.vscode/*
+!.vscode/.gitkeep
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS Specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/*.log
+log/
+!logs/.gitkeep
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Test Outputs
+test_output/
+debug/
+coverage/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Documentation Build
+docs/_build/
+docs/.doctrees/
+site/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# Kiro / AI Tools
+.kiro/sessions/
+.agent/*
+!.agent/.gitkeep
+!.agent/SKILL.md
+
+# TensorRT Cache
+*.cache
+tensorrt_cache/
+
+# Git
+*.orig

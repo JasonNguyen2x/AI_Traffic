@@ -1,0 +1,18 @@
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6
+websockets>=12.0
+jinja2>=3.1.0
+pyyaml>=6.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+opencv-python>=4.8.0
+numpy>=1.24.0,<2.0.0
+torch==2.12.1
+torchvision==0.27.1 # --index-url https://download.pytorch.org/whl/cu130 for cu130
+ultralytics>=8.1.0
+requests>=2.31.0
+python-dateutil>=2.8.0
+tensorrt>=10.0.0 #RTX 5000 series above
+PyTurboJPEG>=1.7.0  # 2-3x faster JPEG encoding (optional, falls back to cv2)
+fast-plate-ocr[onnx-gpu]>=0.1.0 

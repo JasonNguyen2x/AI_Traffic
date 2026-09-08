@@ -1,0 +1,5 @@
+# This file ensures the models/ directory is tracked by git
+# Place your model files here:
+# - yolo11n.pt or yolo11n.engine (vehicle detection)
+# - license_plate_detector.pt or .engine (plate detection)
+# - helmet_detector.pt or .engine (helmet detection)
