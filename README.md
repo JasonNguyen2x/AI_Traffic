@@ -24,7 +24,7 @@ Real-time traffic monitoring system with AI-powered vehicle detection, license p
 - Temporal voting for stable OCR results (>=8 chars Vietnamese plates)
 - Vehicle and plate image crops for verification
 
-### Helmet Detection (NEW!)
+### Helmet Detection
 - Real-time helmet detection for motorcycles
 - Spatial association using BikeWithRider → Helmet/NoHelmet logic
 - Color-coded visualization:
