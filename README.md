@@ -81,14 +81,14 @@ Real-time traffic monitoring system with AI-powered vehicle detection, license p
   └────┬────┘  └────┬────┘  └────┬────┘
        │            │            │
        ▼            │            │
-  ┌─────────┐      │            │
-  │   OCR   │      │            │
-  │fast-plate│     │            │
-  │  (every  │     │            │
-  │ 5 frame) │     │            │
-  └────┬─────┘     │            │
-       │           │            │
-       └───────────┴────────────┘
+  ┌──────────┐      │            │
+  │   OCR    │      │            │
+  │fast-plate│      │            │
+  │  (every  │      │            │
+  │ 5 frame) │      │            │
+  └────┬─────┘      │            │
+       │            │            │ 
+       └────────────┴─────────────
                    │
                    ▼
         ┌──────────────────────┐
@@ -132,6 +132,14 @@ pip install -r requirements.txt
 **For CUDA 13.0 support** (RTX 5000 series):
 ```bash
 pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cu130
+```
+**For CUDA 12.1 support** (RTX 4000 series):
+```bash
+pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
+```
+**For CUDA 11.8 support** (RTX 3000 series):
+```bash
+pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu118
 ```
 
 ### 3. Download Models
