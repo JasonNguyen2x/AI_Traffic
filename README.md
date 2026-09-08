@@ -114,7 +114,7 @@ Real-time traffic monitoring system with AI-powered vehicle detection, license p
 ### 1. Prerequisites
 
 - **Python**: 3.11 or higher
-- **GPU** (recommended): NVIDIA GPU with CUDA 13.0 support (RTX 5050 8GB or better)
+- **GPU** (recommended): NVIDIA GPU with CUDA support (8GB vram or better)
 - **RAM**: 16GB recommended
 - **Storage**: 10GB for models and dependencies
 
@@ -129,7 +129,7 @@ cd AI_Traffic
 pip install -r requirements.txt
 ```
 
-**For CUDA 13.0 support** (RTX 5050/5060 series):
+**For CUDA 13.0 support** (RTX 5000 series):
 ```bash
 pip install torch==2.12.1 torchvision==0.27.1 --index-url https://download.pytorch.org/whl/cu130
 ```
@@ -367,7 +367,7 @@ AI_Traffic/
 │   │   ├── vehicle_detector.py    # YOLO vehicle detection
 │   │   ├── plate_detector.py      # License plate detection
 │   │   ├── ocr_reader.py          # fast-plate-ocr integration
-│   │   └── helmet_detector.py     # Helmet detection (NEW!)
+│   │   └── helmet_detector.py     # Helmet detection
 │   ├── stream/
 │   │   ├── base.py                # Base stream adapter
 │   │   ├── rtsp.py                # RTSP adapter
@@ -387,16 +387,12 @@ AI_Traffic/
 │   ├── license_plate_detector.pt / .engine
 │   └── helmet_detector.pt / .engine
 ├── docs/                          # Documentation
-│   ├── HELMET_DETECTION.md
-│   ├── HELMET_FEATURE_SUMMARY.md
-│   ├── PHASE_*.md
+│   ├── performance_optimization.md
 │   └── TENSORRT_SETUP.md
 ├── uploads/                       # Uploaded video files
 ├── config.yaml                    # System configuration
 ├── requirements.txt               # Python dependencies
 ├── setup_tensorrt.py              # TensorRT engine builder
-├── INSTALLATION_GUIDE.md          # Detailed installation
-├── HELMET_QUICKSTART.md           # Helmet detection guide
 └── README.md                      # This file
 ```
 
@@ -416,7 +412,7 @@ AI_Traffic/
 - **Ultralytics YOLO11** - Object detection
 - **ByteTrack** - Multi-object tracking
 - **fast-plate-ocr** - License plate OCR (ONNX GPU-optimized)
-- **TensorRT 10.0+** - Inference acceleration (RTX 5000 series)
+- **TensorRT 10.0+** - Inference acceleration
 
 ### Frontend
 - **Vanilla JavaScript** - No framework overhead
@@ -428,7 +424,7 @@ AI_Traffic/
 
 ## Performance Metrics
 
-### Hardware: NVIDIA RTX 5050 8GB, 1280x720 resolution
+### Hardware: NVIDIA RTX 3080ti 12gb, 1280x720 resolution
 
 | Component | Inference Time | Interval | Avg Impact |
 |-----------|----------------|----------|------------|
