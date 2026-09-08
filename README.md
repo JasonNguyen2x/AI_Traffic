@@ -142,7 +142,7 @@ Place these models in the `models/` directory:
 |-------|---------|----------|
 | `yolo11n.pt` / `.engine` | Vehicle detection | Yes |
 | `license_plate_detector.pt` / `.engine` | Plate detection | Yes |
-| `helmet_detector.pt` / `.engine` | Helmet detection | Optional |
+| `helmet_detector.pt` / `.engine` | Helmet detection | Yes |
 
 **Download YOLO11n automatically**:
 ```python
