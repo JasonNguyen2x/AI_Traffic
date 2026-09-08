@@ -281,7 +281,7 @@ UI Sidebar:
 └─────────────────────────┘
 ```
 
-### Helmet Detection (NEW!)
+### Helmet Detection
 ```
 With helmet
 ┌──────────────────────┐
